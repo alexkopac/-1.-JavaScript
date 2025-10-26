@@ -1,0 +1,254 @@
+<html>
+<body>
+<h1>Hello World</h1>
+<script >
+
+function calculateRangeSum() {
+    const inputStart = prompt("1. Введіть початкове число діапазону:");
+    const inputEnd = prompt("1. Введіть кінцеве число діапазону:");
+
+    const start = parseInt(inputStart, 10);
+    const end = parseInt(inputEnd, 10);
+
+    
+    if (Number.isNaN(start) || Number.isNaN(end)) {
+        console.log("1. Помилка: введено некоректні числа.");
+        return;
+    }
+
+    let sum = 0;
+    
+    for (let i = start; i <= end; i++) {
+        sum += i;
+    }
+
+    console.log(`1. Сума чисел у діапазоні від ${start} до ${end}: ${sum}`);
+}
+
+
+function findGCD() {
+    const inputA = prompt("2. Введіть перше число:");
+    const inputB = prompt("2. Введіть друге число:");
+    
+    let a = parseInt(inputA, 10);
+    let b = parseInt(inputB, 10);
+
+    if (Number.isNaN(a) || Number.isNaN(b)) {
+        console.log("2. Помилка: введено некоректні числа.");
+        return;
+    }
+    
+    
+    let num1 = a < 0 ? -a : a;
+    let num2 = b < 0 ? -b : b;
+
+    
+    while (num2 !== 0) {
+        let temp = num2;
+        num2 = num1 % num2;
+        num1 = temp;
+    }
+
+    console.log(`2. Найбільший спільний дільник чисел ${a} і ${b}: ${num1}`);
+}
+
+
+function printDivisors() {
+    const inputNumber = prompt("3. Введіть число:");
+    const number = parseInt(inputNumber, 10);
+
+    if (Number.isNaN(number)) {
+        console.log("3. Помилка: введено некоректне число.");
+        return;
+    }
+
+    let divisors = [];
+    
+    for (let i = 1; i <= number; i++) {
+        if (number % i === 0) {
+            divisors.push(i);
+        }
+    }
+
+    console.log(`3. Дільники числа ${number}: ${divisors.join(', ')}`);
+}
+
+
+
+
+
+function analyzeTenNumbers() {
+    let positiveCount = 0;
+    let negativeCount = 0;
+    let zeroCount = 0;
+    let evenCount = 0;
+    let oddCount = 0;
+
+    
+    for (let i = 1; i <= 10; i++) {
+        const input = prompt(`5. Введіть число #${i} з 10:`);
+        const num = parseInt(input, 10);
+
+        if (Number.isNaN(num)) {
+            console.log(`5. Пропущено введення #${i} через некоректне значення.`);
+            continue;
+        }
+
+        
+        if (num > 0) {
+            positiveCount++;
+        } else if (num < 0) {
+            negativeCount++;
+        } else {
+            zeroCount++;
+        }
+
+        
+        if (num % 2 === 0) {
+            evenCount++;
+        } else {
+            oddCount++;
+        }
+    }
+
+    console.log("5. Статистика введених чисел:");
+    console.log(`   Додатних: ${positiveCount}`);
+    console.log(`   Від'ємних: ${negativeCount}`);
+    console.log(`   Нулів: ${zeroCount}`);
+    console.log(`   Парних: ${evenCount}`);
+    console.log(`   Непарних: ${oddCount}`);
+}
+
+
+function runCalculator() {
+    let shouldContinue;
+
+    
+    do {
+        const inputNum1 = prompt("6. Введіть перше число:");
+        const operator = prompt("6. Введіть знак (+, -, *, /):");
+        const inputNum2 = prompt("6. Введіть друге число:");
+        
+        const num1 = parseFloat(inputNum1);
+        const num2 = parseFloat(inputNum2);
+
+        if (Number.isNaN(num1) || Number.isNaN(num2)) {
+             console.log("6. Помилка: введено некоректні числа.");
+             shouldContinue = confirm("Бажаєте спробувати ще раз?");
+             continue;
+        }
+
+        let result;
+        let validOperation = true;
+
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                if (num2 === 0) {
+                    console.log("6. Помилка: ділення на нуль неможливе.");
+                    validOperation = false;
+                } else {
+                    result = num1 / num2;
+                }
+                break;
+            default:
+                console.log("6. Помилка: невідомий оператор.");
+                validOperation = false;
+        }
+
+        if (validOperation) {
+            console.log(`6. Результат: ${num1} ${operator} ${num2} = ${result}`);
+        }
+
+        shouldContinue = confirm("Бажаєте розв'язати ще один приклад?");
+
+    } while (shouldContinue);
+
+    console.log("6. Калькулятор завершив роботу.");
+}
+
+
+
+
+
+
+
+function printMultiplicationTable() {
+    console.log("9. Таблиця множення (від 2 до 9):");
+    let output = "";
+
+    
+    for (let i = 2; i <= 9; i++) {
+        output += `\n--- Таблиця для ${i} ---\n`;
+        
+        
+        for (let j = 1; j <= 10; j++) {
+            output += `   ${i} * ${j} = ${i * j}\n`;
+        }
+    }
+    console.log(output);
+}
+
+
+function guessNumberGame() {
+    console.log("10. Гра «Вгадай число». Загадайте число від 0 до 100.");
+    
+    let min = 0;
+    let max = 100;
+    let guess;
+    let found = false;
+    let attempts = 0;
+
+    
+    while (!found) {
+        if (min > max) {
+            console.log("10. Ви надали суперечливі відповіді. Гра завершена.");
+            break;
+        }
+
+        
+        guess = ((min + max) / 2) | 0; 
+        attempts++;
+
+        const response = prompt(`10. Ваше число: > ${guess}, < ${guess} або == ${guess}? (Введіть >, <, або ==)`);
+
+        if (response === null) {
+            console.log("10. Гра перервана.");
+            break;
+        }
+
+        switch (response.trim()) {
+            case '==':
+                found = true;
+                break;
+            case '>':
+                
+                min = guess + 1;
+                break;
+            case '<':
+                
+                max = guess - 1;
+                break;
+            default:
+                console.log("10. Некоректна відповідь. Спробуйте ще раз.");
+                attempts--;
+                break;
+        }
+    }
+
+    if (found) {
+        console.log(`10. Ваше число ${guess}! Я вгадав за ${attempts} спроб.`);
+    }
+}
+    
+</script>
+</body>
+</html>
